@@ -1,2 +1,80 @@
 ﻿body {
+    background-color: darkgray;
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+header {
+    margin-bottom: 30px;
+}
+#mainWin {
+    display: table-cell;
+    vertical-align: middle;
+}
+.simon {
+     margin: 33px auto;
+     border: 10px solid #333;
+     background-color: #333;
+     border-radius: 50%;
+     height: 400px;
+     width: 400px;
+     padding: 30px;
+     overflow: hidden;
+     position: relative;
+}
+.display {
+    margin: 59px auto;
+    background-color: white;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    padding: 30px;
+    overflow: hidden;
+    position: relative;
+    border: 10px solid #333;
+}
+.red {
+    position: absolute;
+    background-color: red;
+    width: 50%;
+    height: 45%;
+    left: 55%;
+    right: 0%;
+    bottom: 50%;
+    top: 0%;
+}
+.green {
+    position: absolute;
+    background-color: green;
+    width: 45%;
+    height: 45%;
+    left: 0%;
+    right: 45%;
+    bottom: 50%;
+    top: 0%;
+}
+.blue {
+    position: absolute;
+    background-color: blue;
+    width: 45%;
+    height: 50%;
+    left: 55%;
+    right: 0%;
+    bottom: 0%;
+    top: 50%;
+}
+.yellow {
+    position: absolute;
+    background-color: yellow;
+    width: 45%;
+    height: 50%;
+    left: 0%;
+    right: 45%;
+    bottom: 0%;
+    top: 50%;
+}
+footer{
+    font-size: 12px;
+    margin-top: 20px;
 }
