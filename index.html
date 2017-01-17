@@ -17,7 +17,7 @@
 <body class="text-center">
     <div id="mainWin">
         <header><h3>Simon Game</h3></header>
-        <section>
+        <section id="gameWin" class="hidden">
             <div class="simon">
                 <div class="row">
                     <div class="pad red"></div>
@@ -30,7 +30,7 @@
                 <div class="display" id="display">
                     <div id="logo"><span id="name">Simon</span><sup> ®</sup></div>
                     <div class="row">
-                        <div id="count" class="col-xs-4">21</div>
+                        <div id="count" class="col-xs-4"></div>
                         <div class="col-xs-4 stB"><button id="start" class="btn"></button></div>
                         <div class="col-xs-4 stB"><button id="strict" class="btn"></button></div>
                     </div>
@@ -40,19 +40,19 @@
                         <div class="col-xs-4 text-center">STRICT</div>
                     </div>
                     <div class="onoffswitch">
-                        
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                            <label class="onoffswitch-label" for="myonoffswitch">
-                                <span class="onoffswitch-inner"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+                        <label class="onoffswitch-label" for="myonoffswitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
                     </div>
+
 
                    
                 </div>
             </div>
         </section>
+        <section id="loadWin">Loading...</section>
         <footer>By Maryna Martynenko</footer>
     </div>
 </body>
