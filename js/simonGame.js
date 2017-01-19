@@ -2,6 +2,7 @@
 
     function Board() {
         this.status = 'off';
+        this.gameStatus = 'off';
 
         this.setStatus = function (s) {
             switch (s) {
@@ -32,18 +33,13 @@
         }
 
         this.startGame = function () {
-            switch (this.status) {
-                case 'plain':
-                    console.log("Plain game starts!!!");
-                    break;
-                case 'strict':
-                    console.log("Strict game starts!!!");
-                    break;
-            }
+            console.log("Game starts!!!");
+            this.gameStatus = 'on';
         }
 
         this.stopGame = function () {
             console.log('Game stops!');
+            this.gameStatus = 'off';
         }
         
     }
@@ -75,7 +71,7 @@
     $('#start').click(function () {
         //start game
         if (board.status !== 'off') {
-               board.startGame();
+               if (board.gameStatus == 'off') board.startGame();
             }
       
     });
