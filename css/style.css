@@ -37,7 +37,7 @@ h3 {
 }
 .red {
     position: absolute;
-    background-color: red;
+    background-color: #CC0033;
     width: 50%;
     height: 45%;
     left: 55%;
@@ -45,9 +45,12 @@ h3 {
     bottom: 50%;
     top: 0%;
 }
+.lightred{
+    background-color: #FF0033;
+}
 .green {
     position: absolute;
-    background-color: green;
+    background-color:  #009900 ;
     width: 45%;
     height: 45%;
     left: 0%;
@@ -55,9 +58,12 @@ h3 {
     bottom: 50%;
     top: 0%;
 }
+.lightgreen{
+    background-color: #33FF66;
+}
 .blue {
     position: absolute;
-    background-color: blue;
+    background-color:  #3333CC ;
     width: 45%;
     height: 50%;
     left: 55%;
@@ -65,15 +71,21 @@ h3 {
     bottom: 0%;
     top: 50%;
 }
+.lightblue{
+    background-color: #0099FF;
+}
 .yellow {
     position: absolute;
-    background-color: yellow;
+    background-color: #FFCC00;
     width: 45%;
     height: 50%;
     left: 0%;
     right: 45%;
     bottom: 0%;
     top: 50%;
+}
+.lightyellow{
+    background-color: #FFFF00;
 }
 #name {
     font-size: 28px;
