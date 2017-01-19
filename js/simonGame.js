@@ -1,4 +1,8 @@
 ﻿$(document).ready(function () {
+    var MAX = 20; //max sequence length
+    var sequence = [];
+    var colors = ['red', 'green', 'yellow', 'blue'];
+    var myInterval;
 
     function Board() {
         this.status = 'off';
@@ -32,14 +36,38 @@
             }
         }
 
+        function blink() {
+            var i = 0;
+            clearInterval(myInterval);
+            myInterval = setInterval(function () {
+                if(i>0) $('.' + sequence[i-1]).removeClass('light' + sequence[i-1]); // change it back 
+                $('.' + sequence[i]).addClass('light' + sequence[i]);//blink
+                if (i < sequence.length) i++;
+                else { clearInterval(myInterval); myInterval = setInterval(generateNext, 1000);return }
+            }, 700);
+        }
+
+        function generateNext() {
+            if (sequence.length >= MAX) { clearInterval(myInterval); return}
+            sequence.push(colors[Math.floor(Math.random() * 4)]);
+            $('#count').html(sequence.length + ' ');
+            blink();
+            
+            console.log(sequence);
+        }
+
         this.startGame = function () {
             console.log("Game starts!!!");
             this.gameStatus = 'on';
+            myInterval = setInterval(generateNext, 1000);
+            
         }
 
         this.stopGame = function () {
             console.log('Game stops!');
             this.gameStatus = 'off';
+            clearInterval(myInterval);
+            sequence = [];
         }
         
     }
