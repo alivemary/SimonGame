@@ -1,12 +1,14 @@
 ﻿$(document).ready(function () {
-    var MAX = 20; //max sequence length
+    var MAX = 5; //max sequence length
     var sequence = [];
+    var curSequence = [];
     var colors = ['red', 'green', 'yellow', 'blue'];
     var myInterval;
 
     function Board() {
         this.status = 'off';
         this.gameStatus = 'off';
+        this.player = 'simon';
 
         this.setStatus = function (s) {
             switch (s) {
@@ -15,6 +17,10 @@
                     console.log("Game off!");
                     $('#count').html('');
                     $('#strictOn').css('background-color', '#660000');
+                    $('#red').removeClass('lightred');
+                    $('#blue').removeClass('lightblue');
+                    $('#yellow').removeClass('lightyellow');
+                    $('#green').removeClass('lightgreen');
                     this.stopGame();
                     break;
                 case 'on':
@@ -36,23 +42,33 @@
             }
         }
 
-        function blink() {
-            var i = 0;
+        function blink(i) {
             clearInterval(myInterval);
             myInterval = setInterval(function () {
                 if(i>0) $('.' + sequence[i-1]).removeClass('light' + sequence[i-1]); // change it back 
                 $('.' + sequence[i]).addClass('light' + sequence[i]);//blink
+                clearInterval(myInterval);
+                myInterval = setInterval(function(){
+                    $('.' + sequence[i]).removeClass('light' + sequence[i]);
+                    clearInterval(myInterval);
+                    blink(i);
+                }, 400);
                 if (i < sequence.length) i++;
-                else { clearInterval(myInterval); myInterval = setInterval(generateNext, 1000);return }
-            }, 700);
+                else {
+                    clearInterval(myInterval);
+                    board.player = 'human';
+                    //myInterval = setInterval(generateNext, 1000);
+                    return;
+                }
+            }, 400);
+            
         }
 
         function generateNext() {
             if (sequence.length >= MAX) { clearInterval(myInterval); return}
             sequence.push(colors[Math.floor(Math.random() * 4)]);
             $('#count').html(sequence.length + ' ');
-            blink();
-            
+            blink(0);
             console.log(sequence);
         }
 
@@ -68,6 +84,15 @@
             this.gameStatus = 'off';
             clearInterval(myInterval);
             sequence = [];
+            curSequence = [];
+        }
+
+        this.check = function () {
+            var result = true;
+            for (var i = 0; i < curSequence.length; i++) {
+                if (curSequence[i] !== sequence[i]) result = false;
+            }
+            return result;
         }
         
     }
@@ -102,6 +127,31 @@
                if (board.gameStatus == 'off') board.startGame();
             }
       
+    });
+    $('.pad').click(function () {
+        //player turn
+        if (board.status !== 'off') {
+            if (board.gameStatus == 'on' && board.player == 'human') {
+                curSequence.push(this.id);
+                if (!board.check()) {
+                    $('#count').html('!! ');
+                    board.setStatus('off');
+                    board.setStatus('on');
+                    board.player = 'simon';
+                    if (board.status !== 'off') {
+                        if (board.gameStatus == 'off') board.startGame();
+                    }
+                    return;
+                }
+                console.log(curSequence);
+                if (curSequence.length === sequence.length) {
+                    board.player = 'simon';
+                    curSequence = [];
+                    board.startGame();
+                }
+            }
+            
+        }
     });
    
 });
