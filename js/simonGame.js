@@ -72,11 +72,24 @@
             console.log(sequence);
         }
 
+        function repeatLast() {
+            if (sequence.length >= MAX) { clearInterval(myInterval); return }
+            $('#count').html(sequence.length + ' ');
+            blink(0);
+            console.log(sequence);
+        }
+
         this.startGame = function () {
             console.log("Game starts!!!");
             this.gameStatus = 'on';
-            myInterval = setInterval(generateNext, 1000);
-            
+            myInterval = setInterval(generateNext, 1000);            
+        }
+
+        this.repeatGame = function () {
+            console.log("Game starts!!!");
+            this.gameStatus = 'on';
+            myInterval = setInterval(repeatLast, 1000);
+
         }
 
         this.stopGame = function () {
@@ -93,6 +106,10 @@
                 if (curSequence[i] !== sequence[i]) result = false;
             }
             return result;
+        }
+
+        this.buttonApp = function (color){
+            $('.' + color).addClass('light' + color);
         }
         
     }
@@ -135,11 +152,20 @@
                 curSequence.push(this.id);
                 if (!board.check()) {
                     $('#count').html('!! ');
-                    board.setStatus('off');
-                    board.setStatus('on');
                     board.player = 'simon';
-                    if (board.status !== 'off') {
-                        if (board.gameStatus == 'off') board.startGame();
+                    switch (board.status) {
+                        case 'plain':
+                            curSequence = [];
+                            board.repeatGame();
+                            break;
+                        case 'strict':
+                            board.setStatus('off');
+                            board.setStatus('on');
+                            board.setStatus('strict');
+                            if (board.status !== 'off') {
+                                if (board.gameStatus == 'off') board.startGame();
+                            }
+                            break;
                     }
                     return;
                 }
