@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    var MAX = 5; //max sequence length
+    var MAX = 3; //max sequence length
     var sequence = [];
     var curSequence = [];
     var colors = ['red', 'green', 'yellow', 'blue'];
@@ -45,14 +45,21 @@
         function blink(i) {
             clearInterval(myInterval);
             myInterval = setInterval(function () {
-                if(i>0) $('.' + sequence[i-1]).removeClass('light' + sequence[i-1]); // change it back 
-                $('.' + sequence[i]).addClass('light' + sequence[i]);//blink
-                clearInterval(myInterval);
-                myInterval = setInterval(function(){
-                    $('.' + sequence[i]).removeClass('light' + sequence[i]);
+                if (i > 0) $('.' + sequence[i - 1]).removeClass('light' + sequence[i - 1]); // change it back 
+                if (i < sequence.length) {
+                    $('.' + sequence[i]).addClass('light' + sequence[i]);//blink
+                    console.log('i = '+i);
+                    console.log('color = '+sequence[i]);
+                    console.log('index = ' + colors.indexOf(sequence[i]));
+                    var audio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound' + (colors.indexOf(sequence[i]) + 1) + '.mp3');
+                    audio.play();
                     clearInterval(myInterval);
-                    blink(i);
-                }, 400);
+                    myInterval = setInterval(function(){
+                        $('.' + sequence[i]).removeClass('light' + sequence[i]);
+                        clearInterval(myInterval);
+                        blink(i);
+                    }, 400);
+                }
                 if (i < sequence.length) i++;
                 else {
                     clearInterval(myInterval);
@@ -65,7 +72,11 @@
         }
 
         function generateNext() {
-            if (sequence.length >= MAX) { clearInterval(myInterval); return}
+            if (sequence.length >= MAX) {
+                clearInterval(myInterval);
+                $('#count').html('++ ');
+                return
+            }
             sequence.push(colors[Math.floor(Math.random() * 4)]);
             $('#count').html(sequence.length + ' ');
             blink(0);
@@ -149,7 +160,14 @@
         //player turn
         if (board.status !== 'off') {
             if (board.gameStatus == 'on' && board.player == 'human') {
-                curSequence.push(this.id);
+                var color = this.id;
+                curSequence.push(color);
+                var audio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound'+(colors.indexOf(color)+1)+'.mp3');
+                audio.play();
+                $('.' + color).addClass('light' + color);
+                myInterval = setTimeout(function () {
+                    $('.' + color).removeClass('light' + color);
+                }, 500);
                 if (!board.check()) {
                     $('#count').html('!! ');
                     board.player = 'simon';
@@ -175,9 +193,11 @@
                     curSequence = [];
                     board.startGame();
                 }
+                
             }
             
         }
-    });
+    })
+    
    
 });
