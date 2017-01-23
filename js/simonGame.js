@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    var MAX = 3; //max sequence length
+    var MAX = 20; //max sequence length
     var sequence = [];
     var curSequence = [];
     var colors = ['red', 'green', 'yellow', 'blue'];
@@ -51,7 +51,7 @@
                     console.log('i = '+i);
                     console.log('color = '+sequence[i]);
                     console.log('index = ' + colors.indexOf(sequence[i]));
-                    var audio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound' + (colors.indexOf(sequence[i]) + 1) + '.mp3');
+                    var audio = new Audio('sound/simonSound' + (colors.indexOf(sequence[i]) + 1) + '.mp3');
                     audio.play();
                     clearInterval(myInterval);
                     myInterval = setInterval(function(){
@@ -75,6 +75,8 @@
             if (sequence.length >= MAX) {
                 clearInterval(myInterval);
                 $('#count').html('++ ');
+                var audio = new Audio('sound/342218__littlerainyseasons__good-end.mp3');
+                audio.play();
                 return
             }
             sequence.push(colors[Math.floor(Math.random() * 4)]);
@@ -84,7 +86,7 @@
         }
 
         function repeatLast() {
-            if (sequence.length >= MAX) { clearInterval(myInterval); return }
+            if (sequence.length > MAX) { clearInterval(myInterval); return }
             $('#count').html(sequence.length + ' ');
             blink(0);
             console.log(sequence);
@@ -162,7 +164,7 @@
             if (board.gameStatus == 'on' && board.player == 'human') {
                 var color = this.id;
                 curSequence.push(color);
-                var audio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound'+(colors.indexOf(color)+1)+'.mp3');
+                var audio = new Audio('sound/simonSound'+(colors.indexOf(color)+1)+'.mp3');
                 audio.play();
                 $('.' + color).addClass('light' + color);
                 myInterval = setTimeout(function () {
@@ -170,6 +172,8 @@
                 }, 500);
                 if (!board.check()) {
                     $('#count').html('!! ');
+                    var audio = new Audio('sound/333785__projectsu012__8-bit-failure-sound.wav');
+                    audio.play();
                     board.player = 'simon';
                     switch (board.status) {
                         case 'plain':
