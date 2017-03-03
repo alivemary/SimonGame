@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    var MAX = 20; //max sequence length
+    var MAX = 3; //max sequence length
     var sequence = [];
     var curSequence = [];
     var colors = ['red', 'green', 'yellow', 'blue'];
@@ -51,7 +51,7 @@
                     console.log('i = '+i);
                     console.log('color = '+sequence[i]);
                     console.log('index = ' + colors.indexOf(sequence[i]));
-                    var audio = new Audio('sound/simonSound' + (colors.indexOf(sequence[i]) + 1) + '.mp3');
+                    var audio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound' + (colors.indexOf(sequence[i]) + 1) + '.mp3');
                     audio.play();
                     clearInterval(myInterval);
                     myInterval = setInterval(function(){
@@ -164,7 +164,7 @@
             if (board.gameStatus == 'on' && board.player == 'human') {
                 var color = this.id;
                 curSequence.push(color);
-                var audio = new Audio('sound/simonSound'+(colors.indexOf(color)+1)+'.mp3');
+                var audio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound'+(colors.indexOf(color)+1)+'.mp3');
                 audio.play();
                 $('.' + color).addClass('light' + color);
                 myInterval = setTimeout(function () {
